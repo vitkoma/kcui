@@ -13,9 +13,9 @@ class UiController(
 ) {
 
     @Get("/{path:[^.]*}")
-    fun forward(path: String?): Optional<StreamedFile>? {
+    fun forward(path: String?): Optional<StreamedFile> {
         return environment.getResource("classpath:public/index.html")
-            .map { url: URL? -> StreamedFile(url) }
+            .map { url: URL -> StreamedFile(url) }
     }
 
 }
