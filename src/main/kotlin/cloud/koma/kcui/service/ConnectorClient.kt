@@ -20,6 +20,9 @@ interface ConnectorClient {
     @Get("{+clusterUrl}/connectors/{connectorName}/status")
     fun fetchConnectorStatus(@PathVariable clusterUrl: String, @PathVariable connectorName: String): Publisher<ConnectorStatus>
 
+    @Get("{+clusterUrl}/connectors/{connectorName}/config")
+    fun fetchConnectorConfig(@PathVariable clusterUrl: String, @PathVariable connectorName: String): Publisher<Map<String, String>>
+
     @Post("{+clusterUrl}/connectors/{connectorName}/restart")
     fun restartConnector(@PathVariable clusterUrl: String, @PathVariable connectorName: String): Publisher<HttpResponse<String>>
 

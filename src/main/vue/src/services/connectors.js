@@ -25,7 +25,12 @@ const connectorService = {
         http
             .put("/clusters/" + clusterName + "/actions/delete-connectors", connectorNames)
             .then(onFulfilled);
-    }
+    },
+    fetchConfig: (clusterName, connectorName, onFulfilled) => {
+        http
+            .get("/clusters/" + clusterName + "/connectors/" + connectorName + "/config")
+            .then(onFulfilled);
+    },
 }
 
 export default connectorService;

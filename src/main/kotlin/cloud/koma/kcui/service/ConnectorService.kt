@@ -35,17 +35,14 @@ class ConnectorService(
         return connectorClient.fetchConnectorStatus(clusterUrl, connectorName)
     }
 
-    private fun invokeConnectorAction(clusterName: String, connectorNames: List<String>,
-                                      action: (clusterUrl: String, connector: String) -> Publisher<HttpResponse<String>>): Publisher<List<ConnectorStatus>> {
+    fun fetchConnectorConfig(clusterName: String, connectorName: String): Publisher<Map<String, String>> {
         config.clusters[clusterName]?.let { url ->
-            return Flux.concat(connectorNames.map { conn ->
-                Mono.from(action(url, conn))
-            }).flatMap { fetchConnectors(url) }
+            return connectorClient.fetchConnectorConfig(url, connectorName)
         }
         return Mono.empty()
     }
 
-    private fun invokeConnectorAction2(clusterName: String, connectorNames: List<String>,
+    private fun invokeConnectorAction(clusterName: String, connectorNames: List<String>,
                                       action: (clusterUrl: String, connector: String) -> Publisher<HttpResponse<String>>): Publisher<List<ConnectorStatus>> {
         config.clusters[clusterName]?.let { url ->
             return Flux.concat(connectorNames.map { conn ->
@@ -60,11 +57,11 @@ class ConnectorService(
     }
 
     fun pauseConnectors(clusterName: String, connectorNames: List<String>): Publisher<List<ConnectorStatus>> {
-        return invokeConnectorAction2(clusterName, connectorNames, connectorClient::pauseConnector)
+        return invokeConnectorAction(clusterName, connectorNames, connectorClient::pauseConnector)
     }
 
     fun resumeConnectors(clusterName: String, connectorNames: List<String>): Publisher<List<ConnectorStatus>> {
-        return invokeConnectorAction2(clusterName, connectorNames, connectorClient::resumeConnector)
+        return invokeConnectorAction(clusterName, connectorNames, connectorClient::resumeConnector)
     }
 
 }

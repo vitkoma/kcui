@@ -137,7 +137,11 @@ const deleteConnectors = (data) => {
       <tr v-for="connector in connectors">
         <td><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" v-model="connector.selected"></td>
         <td>{{ connector.type }}</td>
-        <td>{{ connector.name }}</td>
+        <td>
+          <router-link :to="'/clusters/' + $route.params.clusterName + '/connectors/' + connector.name + '/config'">
+            {{ connector.name }}
+          </router-link>
+        </td>
         <td><span class="badge" :class="stateClass(connector.connector.state)">{{ connector.connector.state }}</span></td>
         <td><span class="badge" :class="tasksStateClass(connector.tasks)">{{ tasksStatus(connector.tasks) }}</span></td>
       </tr>

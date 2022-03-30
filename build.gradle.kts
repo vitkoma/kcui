@@ -9,7 +9,7 @@ plugins {
     id("com.github.node-gradle.node") version "3.2.1"
 }
 
-version = "0.1.0-4-SNAPSHOT"
+version = "0.1.0-5-SNAPSHOT"
 group = "cloud.koma.kcui"
 
 val kotlinVersion = project.properties.get("kotlinVersion")

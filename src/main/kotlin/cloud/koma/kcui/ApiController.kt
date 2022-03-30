@@ -29,6 +29,11 @@ class ApiController(
         return Mono.from(connectorService.fetchConnector(cluster, connector))
     }
 
+    @Get("/clusters/{cluster}/connectors/{connector}/config")
+    fun connectorConfig(@PathVariable cluster: String, @PathVariable connector: String): Publisher<Map<String, String>> {
+        return Mono.from(connectorService.fetchConnectorConfig(cluster, connector))
+    }
+
     @Post("/clusters/{cluster}/actions/restart-connectors")
     fun restartConnectors(@PathVariable cluster: String, @Body connectorNames: List<String>): Publisher<List<ConnectorStatus>> {
         return connectorService.restartConnectors(cluster, connectorNames)
