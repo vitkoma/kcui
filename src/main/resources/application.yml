@@ -1,14 +1,8 @@
-koma.kcui:
-    clusters:
-
 micronaut:
     application:
         name: kcui
     http.client:
         read-timeout: 1m
-    server:
-        cors:
-            enabled: true
     router:
         static-resources:
             default:
